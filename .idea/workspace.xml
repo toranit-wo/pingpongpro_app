@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="83dec2f1-0633-4da4-a491-5e9fea449a6d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator-enh.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/pingpongpro_app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pingpongpro_app/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pingpongpro_app/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pingpongpro_app/lib/models/sensor_recorder_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pingpongpro_app/lib/models/sensor_recorder_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pingpongpro_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pingpongpro_app/pubspec.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1sbzcfmk2DTdaQTEVmYENUzeZoz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/snap/flutter/common/flutter/bin/cache/dart-sdk/lib" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="83dec2f1-0633-4da4-a491-5e9fea449a6d" name="Default Changelist" comment="" />
+      <created>1621156160439</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621156160439</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="743" y="278" width="424" height="493" key="FileChooserDialogImpl" timestamp="1621157220751">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="743" y="278" width="424" height="493" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1621157220751" />
+    <state x="619" y="210" width="992" height="739" key="SettingsEditor" timestamp="1621157232360">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="619" y="210" width="992" height="739" key="SettingsEditor/0.0.1920.1032@0.0.1920.1032" timestamp="1621157232360" />
+    <state x="555" y="252" width="800" height="537" key="Vcs.Push.Dialog.v2" timestamp="1621166411489">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="555" y="252" width="800" height="537" key="Vcs.Push.Dialog.v2/0.0.1920.1032@0.0.1920.1032" timestamp="1621166411489" />
+    <state x="754" y="432" width="412" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1621166402490">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="754" y="432" width="412" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1032@0.0.1920.1032" timestamp="1621166402490" />
+  </component>
+</project>
