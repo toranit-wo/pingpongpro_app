@@ -23,15 +23,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83dec2f1-0633-4da4-a491-5e9fea449a6d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator-enh.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/pingpongpro_app.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pingpongpro_app/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pingpongpro_app/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pingpongpro_app/lib/models/sensor_recorder_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pingpongpro_app/lib/models/sensor_recorder_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pingpongpro_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pingpongpro_app/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pingpongpro_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pingpongpro_app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +69,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="743" y="278" width="424" height="493" key="FileChooserDialogImpl" timestamp="1621157220751">
