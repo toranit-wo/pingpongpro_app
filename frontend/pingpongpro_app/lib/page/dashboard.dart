@@ -188,124 +188,6 @@ class _DashboardState extends State<Dashboard> {
                   height: 25,
                   color: Colors.grey[300],
                 ),
-                Container(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'DISTANCE',
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '8500',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Theme.of(context).accentColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' m',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'CALORIES',
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '259',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Theme.of(context).accentColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' cal',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              'HEART RATE',
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '102',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Theme.of(context).accentColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' bpm',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Divider(
-                  height: 25,
-                  color: Colors.grey[300],
-                ),
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                 ),
@@ -313,7 +195,7 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'DIET PROGRESS',
+                      'Number of ping pong hits',
                       style: TextStyle(
                         color: Theme.of(context).accentColor,
                         fontSize: 24,
@@ -350,21 +232,21 @@ class _DashboardState extends State<Dashboard> {
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
                       StatCard(
-                        title: 'Carbs',
+                        title: 'Fore Hand',
                         achieved: 200,
                         total: 350,
                         color: Colors.orange,
                         image: Image.asset('assets/img/fhand.png', width: 20),
                       ),
                       StatCard(
-                        title: 'Protien',
+                        title: 'Back Hand',
                         achieved: 350,
                         total: 300,
                         color: Theme.of(context).primaryColor,
                         image: Image.asset('assets/img/bhand.png', width: 20),
                       ),
                       StatCard(
-                        title: 'Fats',
+                        title: 'Top Spin',
                         achieved: 100,
                         total: 200,
                         color: Colors.green,
@@ -373,8 +255,74 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 ),
-                Row(),
-                Container(),
+                Divider(
+                  height: 25,
+                  color: Colors.grey[300],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'guidance',
+                      style: TextStyle(
+                        color: Theme.of(context).accentColor,
+                        fontSize: 24,
+                        fontFamily: 'Bebas',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Image.asset(
+                          'assets/img/down_orange.png',
+                          width: 20,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 15),
+                        ),
+                        Text(
+                          '500 Calories',
+                          style: TextStyle(
+                            color: Colors.orange,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Container(
+                  height: 250,
+                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                  child: ListView(
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      StatCard(
+                        title: 'Fore Hand',
+                        achieved: 200,
+                        total: 350,
+                        color: Colors.orange,
+                        image: Image.asset('assets/img/fhand.png', width: 20),
+                      ),
+                      StatCard(
+                        title: 'Back Hand',
+                        achieved: 350,
+                        total: 300,
+                        color: Theme.of(context).primaryColor,
+                        image: Image.asset('assets/img/bhand.png', width: 20),
+                      ),
+                      StatCard(
+                        title: 'Top Spin',
+                        achieved: 100,
+                        total: 200,
+                        color: Colors.green,
+                        image: Image.asset('assets/img/topspin.png', width: 20),
+                      ),
+                    ],
+                  ),
+                ),
                 Row(),
               ],
             ),

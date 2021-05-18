@@ -47,7 +47,7 @@ class _WelcomeState extends State<Welcome> {
                   padding: EdgeInsets.only(top: 30),
                 ),
                 Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
+                  '*******',
                   style: TextStyle(
                     color: Colors.grey,
                   ),
@@ -89,7 +89,7 @@ class _WelcomeState extends State<Welcome> {
                   height: 50,
                   textColor: Theme.of(context).primaryColor,
                   child: Text(
-                    'Sign In'.toUpperCase(),
+                    'Dashboard'.toUpperCase(),
                   ),
                 ),
               ],
