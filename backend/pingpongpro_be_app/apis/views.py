@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import serializers, viewsets
+from rest_framework import viewsets
 
 # Create your views here.
 from .serializers import SensorsSerializer
