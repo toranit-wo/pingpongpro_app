@@ -51,30 +51,16 @@ class _MyHomePageState extends State<MyHomePage> {
     _streamSubscriptions
         .add(accelerometerEvents.listen((AccelerometerEvent event) {
       Provider.of<SensorRecorderModel>(context, listen: false)
-          .setXaccele(event.x);
+          .setAccelerometerValues(<double>[event.x, event.y, event.z]);
     }));
     _streamSubscriptions
-        .add(accelerometerEvents.listen((AccelerometerEvent event) {
+        .add(userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       Provider.of<SensorRecorderModel>(context, listen: false)
-          .setYaccele(event.y);
-    }));
-    _streamSubscriptions
-        .add(accelerometerEvents.listen((AccelerometerEvent event) {
-      Provider.of<SensorRecorderModel>(context, listen: false)
-          .setZaccele(event.z);
-    }));
-
-    _streamSubscriptions.add(gyroscopeEvents.listen((GyroscopeEvent event) {
-      Provider.of<SensorRecorderModel>(context, listen: false)
-          .setXgyro(event.x);
+          .setUserAccelerometerValues(<double>[event.x, event.y, event.z]);
     }));
     _streamSubscriptions.add(gyroscopeEvents.listen((GyroscopeEvent event) {
       Provider.of<SensorRecorderModel>(context, listen: false)
-          .setYgyro(event.y);
-    }));
-    _streamSubscriptions.add(gyroscopeEvents.listen((GyroscopeEvent event) {
-      Provider.of<SensorRecorderModel>(context, listen: false)
-          .setZgyro(event.z);
+          .setGyroscopeValues(<double>[event.x, event.y, event.z]);
     }));
   }
 }

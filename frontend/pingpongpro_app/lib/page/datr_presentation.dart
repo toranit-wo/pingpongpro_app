@@ -1,6 +1,6 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
-import 'package:provider/provider.dart';
 
 class DataPresentation extends StatefulWidget {
   @override
@@ -24,8 +24,10 @@ class _DataPresentationState extends State<DataPresentation> {
             children: <Widget>[
               Consumer<SensorRecorderModel>(
                 builder: (context, sensors, child) {
-                  final double xaccelerometer = sensors.xaccele;
-                  return Text('Accelerometer X: $xaccelerometer');
+                  final List<String> accelerometer = sensors.accelerometerValues
+                      ?.map((double v) => v.toStringAsFixed(1))
+                      ?.toList();
+                  return Text('Accelerometer: $accelerometer');
                 },
               ),
             ],
@@ -38,8 +40,11 @@ class _DataPresentationState extends State<DataPresentation> {
             children: <Widget>[
               Consumer<SensorRecorderModel>(
                 builder: (context, sensors, child) {
-                  final double yaccelerometer = sensors.yaccele;
-                  return Text('Accelerometer Y: $yaccelerometer');
+                  final List<String> userAccelerometer = sensors
+                      .userAccelerometerValues
+                      ?.map((double v) => v.toStringAsFixed(1))
+                      ?.toList();
+                  return Text('UserAccelerometer: $userAccelerometer');
                 },
               ),
             ],
@@ -52,50 +57,10 @@ class _DataPresentationState extends State<DataPresentation> {
             children: <Widget>[
               Consumer<SensorRecorderModel>(
                 builder: (context, sensors, child) {
-                  final double zaccelerometer = sensors.zaccele;
-                  return Text('Accelerometer Z: $zaccelerometer');
-                },
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Consumer<SensorRecorderModel>(
-                builder: (context, sensors, child) {
-                  final double xgyro = sensors.xgyro;
-                  return Text('Gyro X: $xgyro');
-                },
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Consumer<SensorRecorderModel>(
-                builder: (context, sensors, child) {
-                  final double ygyro = sensors.ygyro;
-                  return Text('Gyro Y: $ygyro');
-                },
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Consumer<SensorRecorderModel>(
-                builder: (context, sensors, child) {
-                  final double zgyro = sensors.zgyro;
-                  return Text('Gyro Z: $zgyro');
+                  final List<String> gyroscope = sensors.gyroscopeValues
+                      ?.map((double v) => v.toStringAsFixed(1))
+                      ?.toList();
+                  return Text('Gyroscope: $gyroscope');
                 },
               ),
             ],

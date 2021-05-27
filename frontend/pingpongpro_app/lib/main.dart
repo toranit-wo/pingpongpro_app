@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 ///      MaterialApp(
 ///      title: 'Fitness App',
 ///      theme: ThemeData(

@@ -1,42 +1,33 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:csv/csv.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+// import 'package:path_provider/path_provider.dart';
 import 'dart:async';
-import 'dart:io';
 
 class SensorRecorderModel extends ChangeNotifier {
   // Whether the app is in recording mode
   bool _isRecording = false;
   // The type of the current activity. None-type if not recording.
-  String _activityType = '';
+  String activityTypes = '';
   // The current sensor data
-
-  double _xaccele;
-  double _yaccele;
-  double _zaccele;
-  double _xgyro;
-  double _ygyro;
-  double _zgyro;
-
-  // Recorded sensor data history
-  List<List<dynamic>> _recordedData = [];
+  List<double> _accelerometerValues;
+  List<double> _userAccelerometerValues;
+  List<double> _gyroscopeValues;
+  int id;
+  List<dynamic> recordedData = [];
 
   bool get isRecording => _isRecording;
-  String get activityType => _activityType;
-
-  double get xaccele => _xaccele;
-  double get yaccele => _yaccele;
-  double get zaccele => _zaccele;
-  double get xgyro => _xgyro;
-  double get ygyro => _xgyro;
-  double get zgyro => _xgyro;
+  String get activityType => activityTypes;
+  List<double> get accelerometerValues => _accelerometerValues;
+  List<double> get userAccelerometerValues => _userAccelerometerValues;
+  List<double> get gyroscopeValues => _gyroscopeValues;
 
   Timer _timer;
 
   void startRecording(String activityType) {
     _isRecording = true;
-    _activityType = activityType;
+    activityTypes = activityType;
     _timer =
         Timer.periodic(Duration(milliseconds: 1), (Timer t) => saveToHistory());
     notifyListeners();
@@ -44,67 +35,58 @@ class SensorRecorderModel extends ChangeNotifier {
 
   void saveToHistory() {
     final DateTime now = DateTime.now();
-    final time = now.toString().split(' ')[1];
-    _recordedData
-        .add([_xaccele, _yaccele, _zaccele, _xgyro, _ygyro, _zgyro, time]);
-    print(_recordedData);
+    final time = [now.toString().split(' ')[1]];
+    recordedData.add([
+      _accelerometerValues,
+      _userAccelerometerValues,
+      _gyroscopeValues,
+      time
+    ]);
+    print(recordedData);
     print(time);
     print('\n');
   }
 
   void stopRecording() {
     // Parse filename with activityType and timestemp
-    final DateTime now = DateTime.now();
-    final date = now.toString().split(' ')[0];
     //final time = now.toString().split(' ')[1].split('.')[0];
-    final filename = '${_activityType}_$date.csv';
-    safeRecordedData(filename);
+    safeRecordedData();
     _isRecording = false;
-    _activityType = '';
+    activityTypes = '';
     _timer.cancel();
     notifyListeners();
   }
 
-  void safeRecordedData(String filename) async {
-    final directory = await getExternalStorageDirectory();
-    final file = File('${directory.path}/$filename');
-    // Format sensor data as string
-    String csv = const ListToCsvConverter().convert(_recordedData);
-    await file.writeAsString(csv);
-    print('Saved data as csv file $filename in ${directory.path}');
-    // Reset cached recorded data list
-    _recordedData = [];
-    final dir = await getExternalStorageDirectory();
-    print(dir.listSync(recursive: true, followLinks: false));
+  SensorRecorderModel({this.id, this.activityTypes, this.recordedData});
+  factory SensorRecorderModel.fromJson(Map<String, dynamic> json) {
+    return SensorRecorderModel(id: json['title'], recordedData: json['data']);
+  }
+  dynamic toJson() => {'id': id, 'title': activityTypes, 'data': recordedData};
+
+  void safeRecordedData() async {
+    SensorRecorderModel sensorRecorderModel;
+    final response = await http.post(Uri.parse('http://10.0.2.2:8000/apis/v1/'),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(sensorRecorderModel));
+    if (response.statusCode == 201) {
+      sensorRecorderModel.id = json.decode(response.body)['id'];
+    }
+    print('send data');
+    recordedData = [];
   }
 
-  void setXaccele(double values) {
-    _xaccele = values;
+  void setAccelerometerValues(List values) {
+    _accelerometerValues = values;
     notifyListeners();
   }
 
-  void setYaccele(double values) {
-    _yaccele = values;
+  void setUserAccelerometerValues(List values) {
+    _userAccelerometerValues = values;
     notifyListeners();
   }
 
-  void setZaccele(double values) {
-    _zaccele = values;
-    notifyListeners();
-  }
-
-  void setXgyro(double values) {
-    _xgyro = values;
-    notifyListeners();
-  }
-
-  void setYgyro(double values) {
-    _ygyro = values;
-    notifyListeners();
-  }
-
-  void setZgyro(double values) {
-    _zgyro = values;
+  void setGyroscopeValues(List values) {
+    _gyroscopeValues = values;
     notifyListeners();
   }
 }
