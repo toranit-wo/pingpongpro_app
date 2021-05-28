@@ -65,7 +65,8 @@ class SensorRecorderModel extends ChangeNotifier {
 
   void safeRecordedData() async {
     SensorRecorderModel sensorRecorderModel;
-    final response = await http.post(Uri.parse('http://10.0.2.2:8000/apis/v1/'),
+    final response = await http.post(
+        Uri.parse('http://127.0.0.1:8000/apis/v1/'),
         headers: {"Content-Type": "application/json"},
         body: json.encode(sensorRecorderModel));
     if (response.statusCode == 201) {
