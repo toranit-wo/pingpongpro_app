@@ -45,8 +45,6 @@ class _SpeedometerContainerState extends State<SpeedometerContainer> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
-          child: Text('guta',
-              style: TextStyle(fontSize: 20, color: Colors.black87)),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),

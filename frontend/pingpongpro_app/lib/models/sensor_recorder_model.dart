@@ -1,24 +1,23 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-// import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 
 class SensorRecorderModel extends ChangeNotifier {
   // Whether the app is in recording mode
   bool _isRecording = false;
   // The type of the current activity. None-type if not recording.
-  String activityTypes = '';
+  String _activityType = '';
   // The current sensor data
   List<double> _accelerometerValues;
   List<double> _userAccelerometerValues;
   List<double> _gyroscopeValues;
-  int id;
-  List<dynamic> recordedData = [];
+
+  // Recorded sensor data history
+  List<List<List<dynamic>>> _recordedData = [];
 
   bool get isRecording => _isRecording;
-  String get activityType => activityTypes;
+  String get activityType => _activityType;
   List<double> get accelerometerValues => _accelerometerValues;
   List<double> get userAccelerometerValues => _userAccelerometerValues;
   List<double> get gyroscopeValues => _gyroscopeValues;
@@ -27,7 +26,7 @@ class SensorRecorderModel extends ChangeNotifier {
 
   void startRecording(String activityType) {
     _isRecording = true;
-    activityTypes = activityType;
+    _activityType = activityType;
     _timer =
         Timer.periodic(Duration(milliseconds: 1), (Timer t) => saveToHistory());
     notifyListeners();
@@ -36,44 +35,52 @@ class SensorRecorderModel extends ChangeNotifier {
   void saveToHistory() {
     final DateTime now = DateTime.now();
     final time = [now.toString().split(' ')[1]];
-    recordedData.add([
+    _recordedData.add([
       _accelerometerValues,
       _userAccelerometerValues,
       _gyroscopeValues,
       time
     ]);
-    print(recordedData);
+    print(_recordedData);
     print(time);
-    print('\n');
+    // print('\n');
   }
 
   void stopRecording() {
     // Parse filename with activityType and timestemp
+    // final DateTime now = DateTime.now();
     //final time = now.toString().split(' ')[1].split('.')[0];
-    safeRecordedData();
+    final filename = _activityType;
+    safeRecordedData(filename);
     _isRecording = false;
-    activityTypes = '';
+    _activityType = '';
     _timer.cancel();
     notifyListeners();
   }
 
-  SensorRecorderModel({this.id, this.activityTypes, this.recordedData});
-  factory SensorRecorderModel.fromJson(Map<String, dynamic> json) {
-    return SensorRecorderModel(id: json['title'], recordedData: json['data']);
-  }
-  dynamic toJson() => {'id': id, 'title': activityTypes, 'data': recordedData};
-
-  void safeRecordedData() async {
-    SensorRecorderModel sensorRecorderModel;
+  void safeRecordedData(String filename) async {
+    final file = '$filename';
+    final data = '$_recordedData';
     final response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/apis/v1/'),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(sensorRecorderModel));
-    if (response.statusCode == 201) {
-      sensorRecorderModel.id = json.decode(response.body)['id'];
+      Uri.parse('http://toranit.pythonanywhere.com/apis/v1/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{'title': file, 'data': data}),
+    );
+
+    // Format sensor data as string
+    // Reset cached recorded data list
+    _recordedData = [];
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      print(data);
+      throw Exception('Failed to create album.');
     }
-    print('send data');
-    recordedData = [];
   }
 
   void setAccelerometerValues(List values) {
