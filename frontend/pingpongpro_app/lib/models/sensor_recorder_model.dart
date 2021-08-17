@@ -1,20 +1,26 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
+import 'package:path_provider/path_provider.dart';
+//import 'package:pingpongpro_app/models/data_model.dart';
+
 class SensorRecorderModel extends ChangeNotifier {
-  // Whether the app is in recording mode
   bool _isRecording = false;
-  // The type of the current activity. None-type if not recording.
   String _activityType = '';
-  // The current sensor data
   List<double> _accelerometerValues;
   List<double> _userAccelerometerValues;
   List<double> _gyroscopeValues;
 
-  // Recorded sensor data history
-  List<List<List<dynamic>>> _recordedData = [];
+  List<dynamic> _recordedDataAccele = [];
+  List<dynamic> _recordedDatauserAccele = [];
+  List<dynamic> _recordedDataGyro = [];
+  List<dynamic> _recordedDataTimer = [];
+  // ignore: non_constant_identifier_names
+  List<List<dynamic>> _CsvWritedData = [];
 
   bool get isRecording => _isRecording;
   String get activityType => _activityType;
@@ -34,22 +40,20 @@ class SensorRecorderModel extends ChangeNotifier {
 
   void saveToHistory() {
     final DateTime now = DateTime.now();
-    final time = [now.toString().split(' ')[1]];
-    _recordedData.add([
+    final time = now.toString().split(' ')[1].split(':')[2];
+    _recordedDataAccele.add(_accelerometerValues);
+    _recordedDatauserAccele.add(_userAccelerometerValues);
+    _recordedDataGyro.add(_gyroscopeValues);
+    _recordedDataTimer.add(time);
+    _CsvWritedData.add([
       _accelerometerValues,
       _userAccelerometerValues,
       _gyroscopeValues,
       time
     ]);
-    print(_recordedData);
-    print(time);
-    // print('\n');
   }
 
   void stopRecording() {
-    // Parse filename with activityType and timestemp
-    // final DateTime now = DateTime.now();
-    //final time = now.toString().split(' ')[1].split('.')[0];
     final filename = _activityType;
     safeRecordedData(filename);
     _isRecording = false;
@@ -59,29 +63,61 @@ class SensorRecorderModel extends ChangeNotifier {
   }
 
   void safeRecordedData(String filename) async {
-    final file = '$filename';
-    final data = '$_recordedData';
-    final response = await http.post(
-      Uri.parse('http://toranit.pythonanywhere.com/apis/v1/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{'title': file, 'data': data}),
-    );
-
-    // Format sensor data as string
-    // Reset cached recorded data list
-    _recordedData = [];
-    if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
+    final DateTime now = DateTime.now();
+    final date = now.toString().split(' ')[0];
+    final time = now.toString().split(' ')[1].split('.')[0];
+    final directory = await getExternalStorageDirectory();
+    final fileCSV = File('${directory.path}/${filename}_$date--$time');
+    String csv = const ListToCsvConverter().convert(_CsvWritedData);
+    await fileCSV.writeAsString(csv);
+    print('Saved data as csv file $filename in ${directory.path}');
+    int id = 0;
+    print(filename);
+    print(_recordedDataTimer);
+    if (filename == 'Forehand') {
+      id = 20;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      print(data);
-      throw Exception('Failed to create album.');
+      id = 21;
     }
+    Map data = {
+      'accelerometer': _recordedDataAccele,
+      'useraccelerometer': _recordedDatauserAccele,
+      'gyroscope': _recordedDataGyro,
+      'timer': _recordedDataTimer
+    };
+    final body = jsonEncode(data);
+    final response = await http.put(
+        Uri.parse('http://toranit.pythonanywhere.com/apis/v1/$id/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{'title': filename, 'data': body}));
+
+    _recordedDataAccele = [];
+    _recordedDatauserAccele = [];
+    _recordedDataGyro = [];
+    _recordedDataTimer = [];
+    _CsvWritedData = [];
+    final dir = await getExternalStorageDirectory();
+    print(dir.listSync(recursive: true, followLinks: false));
+    print("${response.statusCode}");
+    print("${response.body}");
   }
+
+  // Future<Data> fetchData() async {
+  //   final response = await http
+  //       .get(Uri.parse('http://toranit.pythonanywhere.com/apis/v1/total/'));
+
+  //   if (response.statusCode == 200) {
+  //     // If the server did return a 200 OK response,
+  //     // then parse the JSON.
+  //     return Data.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     // If the server did not return a 200 OK response,
+  //     // then throw an exception.
+  //     throw Exception('Failed to load data');
+  //   }
+  // }
 
   void setAccelerometerValues(List values) {
     _accelerometerValues = values;

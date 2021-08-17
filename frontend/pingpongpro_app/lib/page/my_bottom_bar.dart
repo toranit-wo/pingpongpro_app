@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pingpongpro_app/page/dashboard.dart';
 import 'package:provider/provider.dart';
-
-/// Own modules
 import 'package:pingpongpro_app/page/past_recordings.dart';
 import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
 
@@ -12,7 +10,7 @@ class MyBottomBar extends StatefulWidget {
 }
 
 class _MyBottomBarState extends State<MyBottomBar> {
-  List<String> _activityOptions = ['Forehand', 'backhand'];
+  List<String> _activityOptions = ['Forehand', 'Backhand'];
   // ignore: deprecated_member_use
   List<DropdownMenuItem<String>> _activityDropdownMenuItems = List();
 
@@ -148,11 +146,6 @@ class _MyBottomBarState extends State<MyBottomBar> {
   }
 
   void _stopRecording() {
-    // Todo
-    // 1. save recording to storage
-    // 2. show success dialog:
-    //   a. show name of saved activity
-    //   b. offer to go to past recordings
     Provider.of<SensorRecorderModel>(context, listen: false).stopRecording();
     // Exit modal dialog
     Navigator.pop(context);

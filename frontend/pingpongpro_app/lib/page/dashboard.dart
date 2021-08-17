@@ -121,7 +121,7 @@ class _DashboardState extends State<Dashboard> {
                   padding: EdgeInsets.only(top: 30),
                 ),
                 Text(
-                  '6522',
+                  '0000',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 80,

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from pingponghit import models
 
 
-class PingponghitSerializer(serializers.ModelSerializer):
+class PingponghitSerializer(serializers.Serializer):
     class Meta:
         fields = (
             'id',
