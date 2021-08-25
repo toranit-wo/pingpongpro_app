@@ -110,7 +110,7 @@ class _DashboardState extends State<Dashboard> {
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: Theme.of(context).primaryColor.withAlpha(50),
+                    color: Colors.lightGreen,
                   ),
                   child: Image.asset(
                     'assets/img/table-tennis.png',
@@ -123,7 +123,7 @@ class _DashboardState extends State<Dashboard> {
                 Text(
                   '0000',
                   style: TextStyle(
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.lightGreen,
                     fontSize: 80,
                     fontFamily: 'Bebas',
                     fontWeight: FontWeight.bold,
@@ -147,7 +147,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                           Text(
-                            '9000 Steps'.toUpperCase(),
+                            '100 Steps'.toUpperCase(),
                             style: TextStyle(
                               color: Colors.grey,
                             ),
@@ -160,7 +160,7 @@ class _DashboardState extends State<Dashboard> {
                         linearStrokeCap: LinearStrokeCap.roundAll,
                         backgroundColor:
                             Theme.of(context).accentColor.withAlpha(30),
-                        progressColor: Theme.of(context).primaryColor,
+                        progressColor: Colors.lightGreen,
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 30),
@@ -168,16 +168,16 @@ class _DashboardState extends State<Dashboard> {
                       Text(
                         'Steps Taken'.toUpperCase(),
                         style: TextStyle(
-                          color: Theme.of(context).accentColor,
+                          color: Colors.lightGreen,
                           fontFamily: 'Bebas',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        'You walked 165 min today',
+                        'You hit 0 time today',
                         style: TextStyle(
-                          color: Theme.of(context).accentColor,
+                          color: Colors.lightGreen,
                           fontSize: 16,
                         ),
                       ),
@@ -195,9 +195,9 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Number of ping pong hits',
+                      'Counter of ping pong hits',
                       style: TextStyle(
-                        color: Theme.of(context).accentColor,
+                        color: Colors.lightGreen,
                         fontSize: 24,
                         fontFamily: 'Bebas',
                         fontWeight: FontWeight.bold,
@@ -235,14 +235,14 @@ class _DashboardState extends State<Dashboard> {
                         title: 'Fore Hand',
                         achieved: 200,
                         total: 350,
-                        color: Colors.orange,
+                        color: Colors.red,
                         image: Image.asset('assets/img/fhand.png', width: 20),
                       ),
                       StatCard(
                         title: 'Back Hand',
                         achieved: 350,
                         total: 300,
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.blue,
                         image: Image.asset('assets/img/bhand.png', width: 20),
                       ),
                       StatCard(
@@ -263,9 +263,9 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'guidance',
+                      'result',
                       style: TextStyle(
-                        color: Theme.of(context).accentColor,
+                        color: Colors.lightGreen,
                         fontSize: 24,
                         fontFamily: 'Bebas',
                         fontWeight: FontWeight.bold,

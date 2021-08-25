@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pingpongpro_app/page/dashboard.dart';
 import 'package:pingpongpro_app/page/my_home_page.dart';
+import 'package:pingpongpro_app/page/setting.dart';
 import 'package:sensors/sensors.dart';
 
 class Welcome extends StatefulWidget {
@@ -53,13 +54,13 @@ class _WelcomeState extends State<Welcome> {
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                 ),
-                Text(
-                  '*******',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                // Text(
+                //   '*******',
+                //   style: TextStyle(
+                //     color: Colors.grey,
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                 ),
@@ -124,6 +125,22 @@ class _WelcomeState extends State<Welcome> {
                   textColor: Theme.of(context).primaryColor,
                   child: Text(
                     'Dashboard'.toUpperCase(),
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SettingPage(),
+                      ),
+                    );
+                  },
+                  minWidth: double.infinity,
+                  height: 50,
+                  textColor: Theme.of(context).primaryColor,
+                  child: Text(
+                    'Setting'.toUpperCase(),
                   ),
                 ),
               ],

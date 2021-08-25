@@ -119,6 +119,8 @@ class SensorRecorderModel extends ChangeNotifier {
   //   }
   // }
 
+  void deletedata() {}
+
   void setAccelerometerValues(List values) {
     _accelerometerValues = values;
     notifyListeners();

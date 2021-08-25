@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingpongpro_app/page/dashboard.dart';
 import 'package:provider/provider.dart';
-import 'package:pingpongpro_app/page/past_recordings.dart';
+// import 'package:pingpongpro_app/page/past_recordings.dart';
 import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
 
 class MyBottomBar extends StatefulWidget {
@@ -24,12 +24,12 @@ class _MyBottomBarState extends State<MyBottomBar> {
     super.initState();
   }
 
-  void _launchPastRecordings() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PastRecordingsPage()),
-    );
-  }
+  // void _launchPastRecordings() {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => PastRecordingsPage()),
+  //   );
+  // }
 
   void _confirmRecordingStart() async {
     await showModalBottomSheet(
@@ -100,51 +100,6 @@ class _MyBottomBarState extends State<MyBottomBar> {
     Navigator.pop(context);
   }
 
-  void _confirmRecordingStop() {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) => FractionallySizedBox(
-              heightFactor: 0.66,
-              child: Container(
-                padding: EdgeInsets.only(left: 24.0, right: 24.0),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(40),
-                    topRight: const Radius.circular(40),
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text('Stop current recording?',
-                        style: TextStyle(fontSize: 22, color: Colors.black87)),
-                    Text(
-                      'If you stop the current recording, it will be saved locally '
-                      'as .csv with the activity and current date-time as name.',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    // ignore: deprecated_member_use
-                    FlatButton(
-                      color: Colors.red,
-                      textColor: Colors.white,
-                      disabledColor: Colors.grey,
-                      disabledTextColor: Colors.black,
-                      padding: EdgeInsets.all(18.0),
-                      splashColor: Colors.grey,
-                      onPressed: _stopRecording,
-                      child: Text('Stop Recording',
-                          style: TextStyle(fontSize: 20.0)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ));
-  }
-
   void _stopRecording() {
     Provider.of<SensorRecorderModel>(context, listen: false).stopRecording();
     // Exit modal dialog
@@ -156,55 +111,41 @@ class _MyBottomBarState extends State<MyBottomBar> {
   }
 
   Widget isNotRecordingBar() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          // ignore: deprecated_member_use
-          FlatButton(
-            color: Colors.white,
-            textColor: Colors.indigo,
-            disabledColor: Colors.grey,
-            disabledTextColor: Colors.black,
-            padding: EdgeInsets.all(20.0),
-            splashColor: Colors.indigo[50],
-            onPressed: _launchPastRecordings,
-            child: Text('Past Recordings', style: TextStyle(fontSize: 20.0)),
+    return Material(
+      color: Colors.white,
+      child: Center(
+        child: Ink(
+          decoration: const ShapeDecoration(
+            color: Colors.lightBlue,
+            shape: CircleBorder(),
           ),
-          // ignore: deprecated_member_use
-          FlatButton(
+          child: IconButton(
+            icon: const Icon(Icons.android),
             color: Colors.white,
-            textColor: Colors.indigo,
-            disabledColor: Colors.grey,
-            disabledTextColor: Colors.black,
-            padding: EdgeInsets.all(20.0),
-            splashColor: Colors.indigo[50],
             onPressed: _confirmRecordingStart,
-            child: Text('New Recording', style: TextStyle(fontSize: 20.0)),
           ),
-        ]);
+        ),
+      ),
+    );
   }
 
   Widget isRecordingBar() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text('Stop current recording:',
-                style: TextStyle(fontSize: 18, color: Colors.black87)),
+    return Material(
+      color: Colors.white,
+      child: Center(
+        child: Ink(
+          decoration: const ShapeDecoration(
+            color: Colors.red,
+            shape: CircleBorder(),
           ),
-          // ignore: deprecated_member_use
-          FlatButton(
+          child: IconButton(
+            icon: const Icon(Icons.android),
             color: Colors.white,
-            textColor: Colors.indigo,
-            disabledColor: Colors.grey,
-            disabledTextColor: Colors.black,
-            padding: EdgeInsets.all(20.0),
-            splashColor: Colors.indigo[50],
-            onPressed: _confirmRecordingStop,
-            child: Text('Stop', style: TextStyle(fontSize: 20.0)),
+            onPressed: _stopRecording,
           ),
-        ]);
+        ),
+      ),
+    );
   }
 
   @override

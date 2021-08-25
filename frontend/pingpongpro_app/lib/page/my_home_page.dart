@@ -5,9 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:pingpongpro_app/page/my_bottom_bar.dart';
 import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
 
-///import 'package:pingpongpro_ui/page/data_presentation.dart';
-import 'package:pingpongpro_app/page/speedometer_container.dart';
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -23,12 +20,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-          leading: Icon(Icons.android), title: const Text('PingPong Pro')),
+      // appBar: AppBar(
+      //   leading: Icon(Icons.android),
+      //   title: const Text('PingPong Pro'),
+      //   backgroundColor: Colors.white,
+      // ),
       body: Container(
-        child: Column(children: <Widget>[
-          SpeedometerContainer(),
-        ]),
+        child: Column(children: <Widget>[]),
       ),
       bottomNavigationBar: MyBottomBar(),
     );
