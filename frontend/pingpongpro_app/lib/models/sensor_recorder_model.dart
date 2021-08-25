@@ -72,26 +72,29 @@ class SensorRecorderModel extends ChangeNotifier {
     await fileCSV.writeAsString(csv);
     print('Saved data as csv file $filename in ${directory.path}');
     int id = 0;
-    print(filename);
-    print(_recordedDataTimer);
     if (filename == 'Forehand') {
-      id = 20;
+      id = 1;
     } else {
-      id = 21;
+      id = 2;
     }
-    Map data = {
-      'accelerometer': _recordedDataAccele,
-      'useraccelerometer': _recordedDatauserAccele,
-      'gyroscope': _recordedDataGyro,
-      'timer': _recordedDataTimer
-    };
-    final body = jsonEncode(data);
+    // Map data = {
+    //   'accelerometer': _recordedDataAccele,
+    //   'useraccelerometer': _recordedDatauserAccele,
+    //   'gyroscope': _recordedDataGyro,
+    //   'timer': _recordedDataTimer
+    // };
+    // final body = jsonEncode(data);
     final response = await http.put(
         Uri.parse('http://toranit.pythonanywhere.com/apis/v1/$id/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(<String, dynamic>{'title': filename, 'data': body}));
+        body: jsonEncode(<String, dynamic>{
+          'title': filename,
+          'accelerometer': _recordedDataAccele,
+          'useraccelerometer': _recordedDatauserAccele,
+          'gyroscope': _recordedDataGyro
+        }));
 
     _recordedDataAccele = [];
     _recordedDatauserAccele = [];

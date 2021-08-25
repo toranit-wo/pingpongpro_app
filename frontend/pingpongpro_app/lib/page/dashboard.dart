@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Julia Vins',
+                  'User 001',
                   style: TextStyle(
                     color: Theme.of(context).accentColor,
                     fontSize: 16,
@@ -175,7 +175,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ),
                       Text(
-                        'You hit 0 time today',
+                        'You hits 0 time today',
                         style: TextStyle(
                           color: Colors.lightGreen,
                           fontSize: 16,
@@ -195,7 +195,7 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Counter of ping pong hits',
+                      'Total hits Today',
                       style: TextStyle(
                         color: Colors.lightGreen,
                         fontSize: 24,
