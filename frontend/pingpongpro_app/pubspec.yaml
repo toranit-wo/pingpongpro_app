@@ -34,7 +34,8 @@ dependencies:
   path_provider: 
   http: 
   percent_indicator:
-  json_annotation: 
+  json_annotation:
+  scidart :
 
 dev_dependencies:
   flutter_test:

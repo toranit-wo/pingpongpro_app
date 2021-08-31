@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
-import 'package:provider/provider.dart';
+// import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
+// import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key key}) : super(key: key);
@@ -47,10 +47,10 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
-  void _deletedata() {
-    Provider.of<SensorRecorderModel>(context, listen: false).deletedata();
-    // Exit modal dialog
-  }
+  // void _deletedata() {
+  //   Provider.of<SensorRecorderModel>(context, listen: false).deletedata();
+  //   // Exit modal dialog
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -124,11 +124,11 @@ class _SettingPageState extends State<SettingPage> {
             Padding(
               padding: EdgeInsets.only(top: 40),
             ),
-            IconButton(
-              onPressed: _deletedata,
-              icon: const Icon(Icons.delete),
-            ),
-            Text('clear data'),
+            // IconButton(
+            //   // onPressed: _deletedata,
+            //   icon: const Icon(Icons.delete),
+            // ),
+            // Text('clear data'),
           ],
         ),
       ),
