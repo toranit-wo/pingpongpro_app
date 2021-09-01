@@ -1,17 +1,10 @@
-// import 'dart:convert';
-// import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-// import 'package:pingpongpro_app/models/data_model.dart';
-import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
-import 'package:provider/provider.dart';
+// import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
+// import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class Dashboard extends StatefulWidget {
-  var allhit;
-  Dashboard({Key key, this.allhit}) : super(key: key);
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -19,7 +12,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<SensorRecorderModel>(context);
+    // final data = Provider.of<SensorRecorderModel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -131,7 +124,8 @@ class _DashboardState extends State<Dashboard> {
                   padding: EdgeInsets.only(top: 30),
                 ),
                 Text(
-                  "${widget.allhit}",
+                  // "${data.allhit}",
+                  "22222",
                   style: TextStyle(
                     color: Colors.lightGreen,
                     fontSize: 80,

@@ -54,13 +54,6 @@ class _WelcomeState extends State<Welcome> {
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                 ),
-                // Text(
-                //   '*******',
-                //   style: TextStyle(
-                //     color: Colors.grey,
-                //   ),
-                //   textAlign: TextAlign.center,
-                // ),
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                 ),

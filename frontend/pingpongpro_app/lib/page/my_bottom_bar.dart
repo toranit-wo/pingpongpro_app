@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pingpongpro_app/page/dashboard.dart';
 import 'package:provider/provider.dart';
-// import 'package:pingpongpro_app/page/past_recordings.dart';
 import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
 
 class MyBottomBar extends StatefulWidget {
@@ -11,8 +10,7 @@ class MyBottomBar extends StatefulWidget {
 
 class _MyBottomBarState extends State<MyBottomBar> {
   List<String> _activityOptions = ['Forehand', 'Backhand'];
-  // ignore: deprecated_member_use
-  List<DropdownMenuItem<String>> _activityDropdownMenuItems = List();
+  List<DropdownMenuItem<String>> _activityDropdownMenuItems = [];
 
   @override
   void initState() {
@@ -23,13 +21,6 @@ class _MyBottomBarState extends State<MyBottomBar> {
     }
     super.initState();
   }
-
-  // void _launchPastRecordings() {
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => PastRecordingsPage()),
-  //   );
-  // }
 
   void _confirmRecordingStart() async {
     await showModalBottomSheet(

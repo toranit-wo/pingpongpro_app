@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
-// import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key key}) : super(key: key);
@@ -47,11 +45,6 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
-  // void _deletedata() {
-  //   Provider.of<SensorRecorderModel>(context, listen: false).deletedata();
-  //   // Exit modal dialog
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,53 +75,14 @@ class _SettingPageState extends State<SettingPage> {
 
                       print(_name);
                       print(_goal);
-
-                      //Send to API
                     },
                   )
                 ],
               ),
             ),
-
-            // children: <Widget>[
-            //   Form(
-            //     key: _formKey,
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: <Widget>[
-            //         _buildName(),
-            //         _buildGoal(),
-            //         SizedBox(height: 100),
-            //         // ignore: deprecated_member_use
-            //         RaisedButton(
-            //           child: Text(
-            //             'Submit',
-            //             style: TextStyle(color: Colors.blue, fontSize: 16),
-            //           ),
-            //           onPressed: () {
-            //             if (!_formKey.currentState.validate()) {
-            //               return;
-            //             }
-
-            //             _formKey.currentState.save();
-
-            //             print(_name);
-            //             print(_goal);
-
-            //             //Send to API
-            //           },
-            //         )
-            //       ],
-            //     ),
-            //   ),
             Padding(
               padding: EdgeInsets.only(top: 40),
             ),
-            // IconButton(
-            //   // onPressed: _deletedata,
-            //   icon: const Icon(Icons.delete),
-            // ),
-            // Text('clear data'),
           ],
         ),
       ),
