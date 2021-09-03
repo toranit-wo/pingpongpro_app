@@ -1,34 +1,39 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:scidart/numdart.dart';
 import 'package:scidart/scidart.dart';
 import 'dart:async';
+import 'package:http/http.dart' as http;
 import 'package:pingpongpro_app/models/data_model.dart';
 
 class SensorRecorderModel extends ChangeNotifier {
+  SensorRecorderModel() {
+    this.fetchTasks();
+    // Data(title: filename, hits: hits, over: over, under: under, good: good);
+  }
+
   bool _isRecording = false;
   String _activityType = '';
-  List<double> _accelerometerValues;
-  List<double> _userAccelerometerValues;
-  List<double> _gyroscopeValues;
+  List<dynamic> _accelerometerValues;
+  List<dynamic> _userAccelerometerValues;
+  List<dynamic> _gyroscopeValues;
 
-  List<List<double>> _recordedDataAccele = [];
-  List<List<double>> _recordedDatauserAccele = [];
-  List<List<double>> _recordedDataGyro = [];
-  List<List<double>> _recordedDataTimer = [];
+  List<dynamic> _recordedDataAccele = [];
+  List<dynamic> _recordedDatauserAccele = [];
+  List<dynamic> _recordedDataGyro = [];
 
   bool get isRecording => _isRecording;
   String get activityType => _activityType;
-  List<double> get accelerometerValues => _accelerometerValues;
-  List<double> get userAccelerometerValues => _userAccelerometerValues;
-  List<double> get gyroscopeValues => _gyroscopeValues;
-
-  List<DataAllhits> _toDataAllhits = [];
-
-  List<DataAllhits> get dataallhits {
-    return [..._toDataAllhits];
-  }
+  List<dynamic> get accelerometerValues => _accelerometerValues;
+  List<dynamic> get userAccelerometerValues => _userAccelerometerValues;
+  List<dynamic> get gyroscopeValues => _gyroscopeValues;
 
   Timer _timer;
+
+  int hits = 0;
+  dynamic over = 0;
+  dynamic under = 0;
+  dynamic good = 0;
 
   void startRecording(String activityType) {
     _isRecording = true;
@@ -45,84 +50,192 @@ class SensorRecorderModel extends ChangeNotifier {
   }
 
   void stopRecording() {
-    final filename = _activityType;
+    var filename = _activityType;
     // safeRecordedData(filename);
-    prosessData(filename);
+    if (filename == 'Forehand') {
+      forehandData(filename);
+    } else {
+      backhandData(filename);
+    }
     _isRecording = false;
     _activityType = '';
     _timer.cancel();
     notifyListeners();
   }
 
-  void prosessData(String filename) {
+  double roundDouble(double value, int places) {
+    double mod = pow(10.0, places);
+    return ((value * mod).round().toDouble() / mod);
+  }
+
+  void forehandData(String filename) {
+    final title = filename;
     List xacc = [];
     List zgyr = [];
-    List newxa = [];
-    List newzg = [];
+    List<double> newxa = [];
+    List<double> newzg = [];
+    List hitc = [];
+    List maxhit = [];
+    List minhit = [];
+    List center = [];
     double sd = 0;
     double sa = 0;
 
-    // ignore: unused_local_variable
-    final title = filename;
-    print(_recordedDataAccele.length);
+    print("---Count hit ---");
     print(_recordedDataGyro.length);
-    for (var item in _recordedDataAccele) {
-      xacc.add(item[0]);
-      print("------------");
-      print(xacc.length);
-      for (var item in _recordedDataGyro) {
-        zgyr.add(item[2]);
+    for (var item in _recordedDataGyro) {
+      zgyr.add(item[2]);
+    }
+    print(zgyr.length);
+    for (var item in zgyr) {
+      if (item != sa) {
+        newzg.add(roundDouble(item, 5));
+        sa = item;
       }
-      print(zgyr.length);
-      print("------------");
-      for (var item in xacc) {
-        if (sd != item) {
-          newxa.add(item);
-          sd = item;
-        }
+    }
+    print(newzg);
+    for (var item in (findPeaks(Array(newzg)))[1]) {
+      if (item >= 2.7) {
+        hitc.add(item);
       }
-      print("------------");
-      print(newxa.length);
-      for (var item in zgyr) {
-        if (item != sa) {
-          newzg.add(item);
-          sa = item;
-        }
-      }
-      print(newzg);
-      print("------------");
-      var prakxa = findPeaks(Array(newxa));
-      print(prakxa[1]);
-      var prakzg = findPeaks(Array(newzg));
-      print(prakzg[1]);
+    }
+    hits = hitc.length;
 
-      // var hits = prakzg[1];
-      // for (var fdata in hits) {
-      //   if (fdata >= 2.0) {
-      //     cleardatag.add(fdata);
-      //   }
-      // }
-      // allhit = cleardatag.length;
-      // print(allhit);
-      // for (var data in prakxa[1]) {
-      //   if (data < -6.3) {
-      //     maxhit.add(data);
-      //   } else if (data > -4.9) {
-      //     minhit.add(data);
-      //   } else {
-      //     center.add(data);
-      //   }
-      // }
-      // print(maxhit);
-      // print(minhit);
-      // print(center);
-      // var maxh = (maxhit.length / hits[0].length) * 100;
-      // var minh = (minhit.length / hits[0].length) * 100;
-      // var cenh = (center.length / hits[0].length) * 100;
-      // print(title);
-      // print(maxh);
-      // print(minh);
-      // print(cenh);
+    print("---good hit---");
+    print(_recordedDataAccele.length);
+    for (var item in _recordedDatauserAccele) {
+      xacc.add(item[0]);
+    }
+    print(xacc.length);
+    for (var item in xacc) {
+      if (sd != item) {
+        newxa.add(roundDouble(item, 5));
+        sd = item;
+      }
+    }
+    print(newxa);
+    print(((findPeaks(Array(newxa)))[1]).length);
+    for (var item in (findPeaks(Array(newxa)))[1]) {
+      if (item < 6.3) {
+        maxhit.add(item);
+      } else if (item > 4.9) {
+        minhit.add(item);
+      } else {
+        center.add(item);
+      }
+    }
+    over = (maxhit.length / ((findPeaks(Array(newxa)))[1]).length) * 100;
+    under = (minhit.length / ((findPeaks(Array(newxa)))[1]).length) * 100;
+    good = (center.length / ((findPeaks(Array(newxa)))[1]).length) * 100;
+
+    print("---End---");
+    // Data(title: title, hits: hits, over: over, under: under, good: good);
+    addact(title);
+  }
+
+  void backhandData(String filename) {
+    var title = filename;
+    List xacc = [];
+    List zgyr = [];
+    List<double> newxa = [];
+    List<double> newzg = [];
+    List hitc = [];
+    List maxhit = [];
+    List minhit = [];
+    List center = [];
+    double sd = 0;
+    double sa = 0;
+
+    print("---Count hit ---");
+    print(_recordedDataGyro.length);
+    for (var item in _recordedDataGyro) {
+      zgyr.add(item[2]);
+    }
+    print(zgyr.length);
+    for (var item in zgyr) {
+      if (item != sa) {
+        newzg.add(roundDouble(item, 5));
+        sa = item;
+      }
+    }
+    print(newzg);
+    for (var item in (findPeaks(Array(newzg)))[1]) {
+      if (item >= 2.7) {
+        hitc.add(item);
+      }
+    }
+    hits = hitc.length;
+
+    print("---good hit---");
+    print(_recordedDataAccele.length);
+    for (var item in _recordedDatauserAccele) {
+      xacc.add(item[0]);
+    }
+    print(xacc.length);
+    for (var item in xacc) {
+      if (sd != item) {
+        newxa.add(roundDouble(item, 5));
+        sd = item;
+      }
+    }
+    print(newxa);
+    print(((findPeaks(Array(newxa)))[1]).length);
+    for (var item in (findPeaks(Array(newxa)))[1]) {
+      if (item < 6.3) {
+        maxhit.add(item);
+      } else if (item > 4.9) {
+        minhit.add(item);
+      } else {
+        center.add(item);
+      }
+    }
+    over = (maxhit.length / ((findPeaks(Array(newxa)))[1]).length) * 100;
+    under = (minhit.length / ((findPeaks(Array(newxa)))[1]).length) * 100;
+    good = (center.length / ((findPeaks(Array(newxa)))[1]).length) * 100;
+
+    print("---End---");
+    // Data(title: title, hits: hits, over: over, under: under, good: good);
+    addact(title);
+  }
+
+  List<Data> _datas = [];
+  List<Data> get datas {
+    return [..._datas];
+  }
+
+  // ignore: missing_return
+  void addact(String filename) async {
+    var title = filename;
+    final response = await http.post(
+        Uri.parse('http://toranit.pythonanywhere.com/pingpong/'),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(<String, dynamic>{
+          'title': title,
+          'hits': hits,
+          'over': over,
+          'under': under,
+          'good': good
+        }));
+    print("${response.statusCode}");
+    print("${response.body}");
+  }
+
+  void deleteTodo(Data data) async {
+    final response = await http
+        .delete(Uri.parse('http://10.0.2.2:8000/apis/v1/${data.id}/'));
+    if (response.statusCode == 204) {
+      _datas.remove(data);
+      notifyListeners();
+    }
+  }
+
+  fetchTasks() async {
+    final url = 'http://toranit.pythonanywhere.com/pingpong/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _datas = data.map<Data>((json) => Data.fromJson(json)).toList();
+      notifyListeners();
     }
   }
 

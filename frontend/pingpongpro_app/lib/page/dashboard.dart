@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-// import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
-// import 'package:provider/provider.dart';
+import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
+import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    // final data = Provider.of<SensorRecorderModel>(context);
+    final data = Provider.of<SensorRecorderModel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -26,12 +26,7 @@ class _DashboardState extends State<Dashboard> {
               width: 40,
               height: 40,
               margin: EdgeInsets.only(right: 10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Image.network(
-                  'https://i.pravatar.cc/100',
-                ),
-              ),
+              child: ClipRRect(borderRadius: BorderRadius.circular(5)),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -43,13 +38,6 @@ class _DashboardState extends State<Dashboard> {
                     color: Theme.of(context).accentColor,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Feb 25, 2018',
-                  style: TextStyle(
-                    color: Theme.of(context).accentColor,
-                    fontSize: 12,
                   ),
                 ),
               ],
@@ -124,8 +112,7 @@ class _DashboardState extends State<Dashboard> {
                   padding: EdgeInsets.only(top: 30),
                 ),
                 Text(
-                  // "${data.allhit}",
-                  "22222",
+                  "${data.hits}",
                   style: TextStyle(
                     color: Colors.lightGreen,
                     fontSize: 80,
@@ -141,31 +128,6 @@ class _DashboardState extends State<Dashboard> {
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            '0 Steps'.toUpperCase(),
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          Text(
-                            '100 Steps'.toUpperCase(),
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                      LinearPercentIndicator(
-                        lineHeight: 8.0,
-                        percent: 0.7,
-                        linearStrokeCap: LinearStrokeCap.roundAll,
-                        backgroundColor:
-                            Theme.of(context).accentColor.withAlpha(30),
-                        progressColor: Colors.lightGreen,
-                      ),
                       Padding(
                         padding: EdgeInsets.only(top: 30),
                       ),
@@ -237,24 +199,17 @@ class _DashboardState extends State<Dashboard> {
                     children: <Widget>[
                       StatCard(
                         title: 'Fore Hand',
-                        achieved: 200,
-                        total: 350,
+                        achieved: 50,
+                        total: 100,
                         color: Colors.red,
                         image: Image.asset('assets/img/fhand.png', width: 20),
                       ),
                       StatCard(
                         title: 'Back Hand',
-                        achieved: 350,
-                        total: 300,
+                        achieved: 0,
+                        total: 0,
                         color: Colors.blue,
                         image: Image.asset('assets/img/bhand.png', width: 20),
-                      ),
-                      StatCard(
-                        title: 'Top Spin',
-                        achieved: 100,
-                        total: 200,
-                        color: Colors.green,
-                        image: Image.asset('assets/img/topspin.png', width: 20),
                       ),
                     ],
                   ),
@@ -316,13 +271,6 @@ class _DashboardState extends State<Dashboard> {
                         total: 300,
                         color: Theme.of(context).primaryColor,
                         image: Image.asset('assets/img/bhand.png', width: 20),
-                      ),
-                      StatCard(
-                        title: 'Top Spin',
-                        achieved: 100,
-                        total: 200,
-                        color: Colors.green,
-                        image: Image.asset('assets/img/topspin.png', width: 20),
                       ),
                     ],
                   ),

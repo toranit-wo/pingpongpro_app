@@ -1,28 +1,34 @@
-class DataAllhits {
+class Data {
   int id;
-  final String title;
-  final int counter;
-  final double tmor;
-  final double cra;
-  final double tmcr;
+  String title;
+  int hits;
+  double over;
+  double under;
+  double good;
 
-  DataAllhits(
-      {this.id, this.title, this.counter, this.tmor, this.cra, this.tmcr});
-
-  factory DataAllhits.fromJson(Map<dynamic, dynamic> json) {
-    return DataAllhits(
+  Data({
+    this.id,
+    this.title,
+    this.hits,
+    this.over,
+    this.under,
+    this.good,
+  });
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
         id: json['id'],
-        counter: json['counter'],
-        tmor: json['tmor'],
-        cra: json['cra'],
-        tmcr: json['tmcr']);
+        title: json['title'],
+        hits: json['hits'],
+        over: json['over'],
+        under: json['under'],
+        good: json['good']);
   }
   dynamic toJson() => {
         'id': id,
         'title': title,
-        'counter': counter,
-        'tmor': tmor,
-        'cra': cra,
-        'tmcr:': tmcr
+        'hits': hits,
+        'over': over,
+        'under': under,
+        'good': good
       };
 }
