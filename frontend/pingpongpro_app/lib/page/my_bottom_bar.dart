@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pingpongpro_app/page/dashboard.dart';
+import 'package:pingpongpro_app/page/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:pingpongpro_app/models/sensor_recorder_model.dart';
 
@@ -94,11 +94,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
   void _stopRecording() {
     Provider.of<SensorRecorderModel>(context, listen: false).stopRecording();
     // Exit modal dialog
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Dashboard()),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Loader()));
   }
 
   Widget isNotRecordingBar() {
@@ -111,9 +107,10 @@ class _MyBottomBarState extends State<MyBottomBar> {
             shape: CircleBorder(),
           ),
           child: IconButton(
-            icon: const Icon(Icons.android),
+            icon: const Icon(Icons.directions_walk),
             color: Colors.white,
             onPressed: _confirmRecordingStart,
+            iconSize: 100.0,
           ),
         ),
       ),
@@ -130,9 +127,10 @@ class _MyBottomBarState extends State<MyBottomBar> {
             shape: CircleBorder(),
           ),
           child: IconButton(
-            icon: const Icon(Icons.android),
+            icon: const Icon(Icons.do_not_disturb),
             color: Colors.white,
             onPressed: _stopRecording,
+            iconSize: 100.0,
           ),
         ),
       ),

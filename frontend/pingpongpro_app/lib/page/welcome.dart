@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:pingpongpro_app/page/dashboard.dart';
+import 'package:pingpongpro_app/page/loader.dart';
 import 'package:pingpongpro_app/page/my_home_page.dart';
-import 'package:pingpongpro_app/page/setting.dart';
 import 'package:sensors/sensors.dart';
 
 class Welcome extends StatefulWidget {
@@ -16,7 +14,6 @@ class _WelcomeState extends State<Welcome> {
   List<double> _gyroscopeValues;
   List<StreamSubscription<dynamic>> _streamSubscriptions =
       <StreamSubscription<dynamic>>[];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +34,7 @@ class _WelcomeState extends State<Welcome> {
                 Text(
                   'Your Personal',
                   style: TextStyle(
+                    // ignore: deprecated_member_use
                     color: Theme.of(context).accentColor,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -52,10 +50,7 @@ class _WelcomeState extends State<Welcome> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 30),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 30),
+                  padding: EdgeInsets.only(top: 60),
                 ),
                 MaterialButton(
                   onPressed: () {
@@ -69,7 +64,7 @@ class _WelcomeState extends State<Welcome> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Wante'),
+                              title: Text('Error'),
                               content: Text('can not see Gyroscope sensor'),
                               actions: <Widget>[
                                 // ignore: deprecated_member_use
@@ -85,7 +80,7 @@ class _WelcomeState extends State<Welcome> {
                             );
                           });
                     } else {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => MyHomePage(),
@@ -109,7 +104,7 @@ class _WelcomeState extends State<Welcome> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Dashboard(),
+                        builder: (context) => Loader(),
                       ),
                     );
                   },
@@ -118,22 +113,6 @@ class _WelcomeState extends State<Welcome> {
                   textColor: Theme.of(context).primaryColor,
                   child: Text(
                     'Dashboard'.toUpperCase(),
-                  ),
-                ),
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SettingPage(),
-                      ),
-                    );
-                  },
-                  minWidth: double.infinity,
-                  height: 50,
-                  textColor: Theme.of(context).primaryColor,
-                  child: Text(
-                    'Setting'.toUpperCase(),
                   ),
                 ),
               ],

@@ -19,31 +19,6 @@ class _DashboardState extends State<Dashboard> {
         elevation: 0,
         titleSpacing: 10,
         backgroundColor: Colors.white10,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: 40,
-              height: 40,
-              margin: EdgeInsets.only(right: 10),
-              child: ClipRRect(borderRadius: BorderRadius.circular(5)),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'User 001',
-                  style: TextStyle(
-                    color: Theme.of(context).accentColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
         actions: <Widget>[
           // ignore: deprecated_member_use
           FlatButton(
@@ -55,6 +30,7 @@ class _DashboardState extends State<Dashboard> {
                   width: 50,
                   child: Icon(
                     Icons.notifications,
+                    // ignore: deprecated_member_use
                     color: Theme.of(context).accentColor,
                     size: 35,
                   ),
@@ -140,13 +116,6 @@ class _DashboardState extends State<Dashboard> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        'You hits 0 time today',
-                        style: TextStyle(
-                          color: Colors.lightGreen,
-                          fontSize: 16,
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -169,24 +138,6 @@ class _DashboardState extends State<Dashboard> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/img/down_orange.png',
-                          width: 20,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 15),
-                        ),
-                        Text(
-                          '500 Calories',
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
                 Container(
@@ -199,15 +150,15 @@ class _DashboardState extends State<Dashboard> {
                     children: <Widget>[
                       StatCard(
                         title: 'Fore Hand',
-                        achieved: 50,
-                        total: 100,
+                        achieved: data.forehandhits.toDouble(),
+                        total: data.forehandhits.toDouble(),
                         color: Colors.red,
                         image: Image.asset('assets/img/fhand.png', width: 20),
                       ),
                       StatCard(
                         title: 'Back Hand',
-                        achieved: 0,
-                        total: 0,
+                        achieved: data.backhandhits.toDouble(),
+                        total: data.backhandhits.toDouble(),
                         color: Colors.blue,
                         image: Image.asset('assets/img/bhand.png', width: 20),
                       ),
@@ -230,24 +181,6 @@ class _DashboardState extends State<Dashboard> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/img/down_orange.png',
-                          width: 20,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 15),
-                        ),
-                        Text(
-                          '500 Calories',
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
                 Container(
@@ -258,24 +191,27 @@ class _DashboardState extends State<Dashboard> {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
-                      StatCard(
+                      StatCard2(
                         title: 'Fore Hand',
-                        achieved: 200,
-                        total: 350,
+                        achieved1: data.foregood.last.toDouble(),
+                        achieved2: data.foreover.last.toDouble(),
+                        achieved3: data.foreunder.last.toDouble(),
+                        total: 100,
                         color: Colors.orange,
                         image: Image.asset('assets/img/fhand.png', width: 20),
                       ),
-                      StatCard(
+                      StatCard2(
                         title: 'Back Hand',
-                        achieved: 350,
-                        total: 300,
+                        achieved1: data.backgood.last.toDouble(),
+                        achieved2: data.backover.last.toDouble(),
+                        achieved3: data.backunder.last.toDouble(),
+                        total: 100,
                         color: Theme.of(context).primaryColor,
                         image: Image.asset('assets/img/bhand.png', width: 20),
                       ),
                     ],
                   ),
                 ),
-                Row(),
               ],
             ),
           ),
@@ -324,6 +260,7 @@ class StatCard extends StatelessWidget {
               Text(
                 title.toUpperCase(),
                 style: TextStyle(
+                  // ignore: deprecated_member_use
                   color: Theme.of(context).accentColor.withAlpha(100),
                   fontSize: 14,
                 ),
@@ -349,6 +286,7 @@ class StatCard extends StatelessWidget {
             circularStrokeCap: CircularStrokeCap.round,
             center: image,
             progressColor: color,
+            // ignore: deprecated_member_use
             backgroundColor: Theme.of(context).accentColor.withAlpha(30),
           ),
           Padding(
@@ -360,19 +298,171 @@ class StatCard extends StatelessWidget {
                 text: achieved.toString(),
                 style: TextStyle(
                   fontSize: 20,
+                  // ignore: deprecated_member_use
                   color: Theme.of(context).accentColor,
-                ),
-              ),
-              TextSpan(
-                text: ' / $total',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
                 ),
               ),
             ]),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class StatCard2 extends StatelessWidget {
+  final String title;
+  final double total;
+  final double achieved1;
+  final double achieved2;
+  final double achieved3;
+  final Image image;
+  final Color color;
+
+  const StatCard2({
+    Key key,
+    @required this.title,
+    @required this.total,
+    @required this.achieved1,
+    @required this.achieved2,
+    @required this.achieved3,
+    @required this.image,
+    @required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      margin: EdgeInsets.only(right: 10),
+      padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: Colors.grey[200],
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                title.toUpperCase(),
+                style: TextStyle(
+                  // ignore: deprecated_member_use
+                  color: Theme.of(context).accentColor.withAlpha(100),
+                  fontSize: 14,
+                ),
+              ),
+              achieved1 < total
+                  ? Image.asset(
+                      'assets/img/down_orange.png',
+                      width: 20,
+                    )
+                  : Image.asset(
+                      'assets/img/up_red.png',
+                      width: 20,
+                    ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 15),
+          ),
+          Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Column(
+              children: <Widget>[
+                RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: '$achieved1 %',
+                      style: TextStyle(
+                        fontSize: 16,
+                        // ignore: deprecated_member_use
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' / $total %',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ]),
+                ),
+                LinearPercentIndicator(
+                  width: 100.0,
+                  lineHeight: 8.0,
+                  percent: achieved1 / (total < achieved1 ? achieved1 : total),
+                  progressColor: Colors.lightGreenAccent[400],
+                ),
+                Padding(
+                  padding: EdgeInsets.all(5.0),
+                ),
+                RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: '$achieved2 %',
+                      style: TextStyle(
+                        fontSize: 16,
+                        // ignore: deprecated_member_use
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' / $total %',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ]),
+                ),
+                LinearPercentIndicator(
+                  width: 100.0,
+                  lineHeight: 8.0,
+                  percent: achieved2 / (total < achieved2 ? achieved2 : total),
+                  progressColor: Colors.yellowAccent[400],
+                ),
+                Padding(
+                  padding: EdgeInsets.all(5.0),
+                ),
+                RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: '$achieved3 %',
+                      style: TextStyle(
+                        fontSize: 16,
+                        // ignore: deprecated_member_use
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' / $total %',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ]),
+                ),
+                LinearPercentIndicator(
+                  width: 100.0,
+                  lineHeight: 8.0,
+                  percent: achieved3 / (total < achieved3 ? achieved3 : total),
+                  progressColor: Colors.orangeAccent[400],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
